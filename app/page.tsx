@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import {
   Github,
@@ -9,14 +11,15 @@ import {
   BarChart,
   Globe,
   Smartphone,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 
 // --- DATA SOURCE (Based on your CV) ---
 
 const personalInfo = {
   name: "Sadam Sidwell Ssekidde",
-  title: "Digital Marketer & Full Stack Developer",
+  title: "Digital Marketer & Web Developer",
   location: "Dubai, UAE",
   email: "sadamsidwellssekidde@gmail.com",
   phone: "+971 52946744",
@@ -89,50 +92,46 @@ const experience = [
 
 const projects = [
   {
-    title: "Real Estate Lead Engine",
-    desc: "A custom landing page system integrated with CRM for capturing real estate leads.",
-    tech: ["Next.js", "Tailwind", "Firebase", "Google Ads API"],
-    link: "#", // Add your link here
-    type: "Web App"
-  },
-  {
-    title: "E-commerce Analytics Dashboard",
-    desc: "A dashboard visualizing sales data and ad spend ROI for a bookstore.",
-    tech: ["React", "Python (Pandas)", "Chart.js"],
-    link: "#", // Add your link here
-    type: "Data Viz"
-  },
-  {
-    title: "Portfolio V1",
-    desc: "My previous personal portfolio focusing on photography and minimal code.",
-    tech: ["HTML/CSS", "JavaScript"],
-    link: "#", // Add your link here
+    title: "Jex Institute",
+    desc: "A professional educational website designed and developed for Jex Institute.",
+    tech: ["WordPress", "PHP", "Performance Optimization"],
+    link: "https://jexbarista.ae/",
     type: "Website"
+  },
+  {
+    title: "BookHero",
+    desc: "A fully functional e-commerce store for books with optimized conversion funnels.",
+    tech: ["Shopify", "Liquid", "UX/UI Design"],
+    link: "https://bookhero.ae/",
+    type: "E-commerce"
+  },
+  {
+    title: "Pinoy Used Cars",
+    desc: "A modern used car marketplace platform with advanced search and filtering.",
+    tech: ["Next.js", "Tailwind CSS", "AWS"],
+    link: "https://pinoyusedcars.com/",
+    type: "Web App"
   }
 ];
 
 const adGallery = [
   {
-    title: "Dubai Real Estate - Meta Ad",
-    category: "Lead Generation",
-    // Replace with your actual image path, e.g., '/images/ad1.jpg'
-    image: "https://via.placeholder.com/600x400/1e293b/ffffff?text=Real+Estate+Ad+Creative"
+    title: "Jex Institute",
+    category: "Google Ad",
+    image: "/googlead.PNG"
   },
   {
-    title: "Bookstore Summer Sale",
-    category: "E-commerce / Carousel",
-    image: "https://via.placeholder.com/600x400/1e293b/ffffff?text=Book+Carousel+Ad"
-  },
-  {
-    title: "Retargeting Campaign",
-    category: "Display Ad",
-    image: "https://via.placeholder.com/600x400/1e293b/ffffff?text=Remarketing+Banner"
+    title: "Home Sweet Home Real Estate",
+    category: "Meta Ad",
+    image: "/metaad.png"
   }
 ];
 
 // --- COMPONENTS ---
 
 export default function Portfolio() {
+  const [selectedAd, setSelectedAd] = React.useState<{ title: string; category: string; image: string } | null>(null);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
 
@@ -172,7 +171,7 @@ export default function Portfolio() {
             <a href="#projects" className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-800 transition">
               View Projects <ChevronRight size={18} />
             </a>
-            <a href="#contact" className="flex items-center gap-2 border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-50 transition">
+            <a href="/Ssekidde Sadam sidwell_CV.pdf" download className="flex items-center gap-2 border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-50 transition">
               Download CV
             </a>
           </div>
@@ -324,9 +323,13 @@ export default function Portfolio() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {adGallery.map((ad, idx) => (
-              <div key={idx} className="group relative rounded-xl overflow-hidden aspect-[4/5] bg-slate-800">
+              <div
+                key={idx}
+                onClick={() => setSelectedAd(ad)}
+                className="group relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-800 block cursor-pointer"
+              >
                 <img
                   src={ad.image}
                   alt={ad.title}
@@ -361,6 +364,39 @@ export default function Portfolio() {
           </p>
         </div>
       </footer>
+
+      {/* IMAGE MODAL */}
+      {selectedAd && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setSelectedAd(null)}
+        >
+          <button
+            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedAd(null);
+            }}
+          >
+            <X size={24} />
+          </button>
+
+          <div
+            className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedAd.image}
+              alt={selectedAd.title}
+              className="max-h-[85vh] w-auto rounded-lg shadow-2xl object-contain bg-slate-900"
+            />
+            <div className="mt-4 text-center">
+              <h3 className="text-xl font-bold text-white">{selectedAd.title}</h3>
+              <span className="text-blue-400 text-sm font-medium uppercase">{selectedAd.category}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
