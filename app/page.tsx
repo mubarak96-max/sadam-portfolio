@@ -29,7 +29,7 @@ const personalInfo = {
   title: "Digital Marketer & Web Developer",
   location: "Dubai, UAE",
   email: "sadamsidwellssekidde@gmail.com",
-  phone: "+971 52946744",
+  phone: "+971 52946144",
   summary: "Digital marketing professional who crafts campaigns that drive business growth and brand visibility. With expertise in SEO, Google Ads, and Meta Ads, I develop targeted strategies that consistently deliver qualified leads. Simultaneously, I possess hands-on experience in full-stack web and app development, bridging the gap between technical execution and marketing strategy.",
 };
 
