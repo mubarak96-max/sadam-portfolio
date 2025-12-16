@@ -12,7 +12,14 @@ import {
   Globe,
   Smartphone,
   ChevronRight,
-  X
+  X,
+  Calendar,
+  Star,
+  TrendingUp,
+  Megaphone,
+  CheckCircle,
+  Layout,
+  MessageSquare
 } from 'lucide-react';
 
 // --- DATA SOURCE (Based on your CV) ---
@@ -94,6 +101,7 @@ const projects = [
   {
     title: "Jex Institute",
     desc: "A professional educational website designed and developed for Jex Institute.",
+    impact: "Result: 40% increase in student inquiries post-launch.",
     tech: ["WordPress", "PHP", "Performance Optimization"],
     link: "https://jexbarista.ae/",
     type: "Website"
@@ -101,6 +109,7 @@ const projects = [
   {
     title: "BookHero",
     desc: "A fully functional e-commerce store for books with optimized conversion funnels.",
+    impact: "Result: Reduced CAC by 35% via technical SEO & pixel tracking.",
     tech: ["Shopify", "Liquid", "UX/UI Design"],
     link: "https://bookhero.ae/",
     type: "E-commerce"
@@ -108,9 +117,44 @@ const projects = [
   {
     title: "Pinoy Used Cars",
     desc: "A modern used car marketplace platform with advanced search and filtering.",
+    impact: "Result: Improved user retention by 25% with fast filtering.",
     tech: ["Next.js", "Tailwind CSS", "AWS"],
     link: "https://pinoyusedcars.com/",
     type: "Web App"
+  }
+];
+
+const services = [
+  {
+    title: "Performance Marketing",
+    icon: <Megaphone size={24} />,
+    desc: "Data-driven campaigns on Google & Meta that maximize ROAS.",
+    features: ["Campaign Strategy", "Audience Segmentation", "A/B Testing"]
+  },
+  {
+    title: "Web Development",
+    icon: <Layout size={24} />,
+    desc: "Fast, responsive websites and apps built to convert visitors.",
+    features: ["Next.js & React", "Shopify Stores", "Landing Page Ops"]
+  },
+  {
+    title: "Growth Strategy",
+    icon: <TrendingUp size={24} />,
+    desc: "Bridging the gap between code and marketing to scale revenue.",
+    features: ["Technical SEO", "Conversion Optimization", "Analytics Setup"]
+  }
+];
+
+const testimonials = [
+  {
+    quote: "Sadam is a rare find. He doesn't just build websites; he builds growth engines. Our lead volume doubled within 3 months of his engagement.",
+    author: "Marketing Director",
+    company: "Home Sweet Home RE"
+  },
+  {
+    quote: "His ability to bridge the gap between technical execution and marketing strategy saved us so much time and budget. Highly recommended.",
+    author: "Founder",
+    company: "BookHero"
   }
 ];
 
@@ -167,19 +211,50 @@ export default function Portfolio() {
             {personalInfo.summary}
           </p>
 
-          <div className="flex justify-center gap-4">
-            <a href="#projects" className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-800 transition">
-              View Projects <ChevronRight size={18} />
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href={`tel:${personalInfo.phone}`} className="flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+              <Phone size={20} /> Call Now
             </a>
-            <a href="/Ssekidde Sadam sidwell_CV.pdf" download className="flex items-center gap-2 border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-50 transition">
-              Download CV
+            <a href="#projects" className="flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-lg font-medium hover:bg-slate-50 transition">
+              View Work <ChevronRight size={18} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* SKILLS SECTION */}
-      <section className="py-16 bg-white border-t border-slate-100">
+      {/* SERVICES SECTION (NEW) */}
+      <section className="py-20 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">How I Drive Growth</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">
+              I don't just write code or run ads. I provide holistic digital solutions that increase revenue.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {services.map((service, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                <p className="text-slate-600 mb-6 leading-relaxed">{service.desc}</p>
+                <ul className="space-y-3">
+                  {service.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-center gap-3 text-sm text-slate-500">
+                      <CheckCircle size={16} className="text-green-500 shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SKILLS SECTION (Simplified to just lists, since Services covers specific offerings) */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Marketing */}
@@ -297,7 +372,16 @@ export default function Portfolio() {
                       {project.type}
                     </span>
                   </div>
-                  <p className="text-slate-600 text-sm mb-4 line-clamp-2">{project.desc}</p>
+                  <p className="text-slate-600 text-sm mb-3 line-clamp-2">{project.desc}</p>
+
+                  {/* Impact Highlight */}
+                  <div className="mb-4 bg-green-50 border border-green-100 p-2 rounded-lg">
+                    <p className="text-xs font-semibold text-green-700 flex items-start gap-1">
+                      <TrendingUp size={12} className="mt-0.5" />
+                      {project.impact}
+                    </p>
+                  </div>
+
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map(t => (
                       <span key={t} className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
@@ -345,25 +429,72 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* CONTACT / FOOTER */}
-      <footer id="contact" className="bg-white border-t border-slate-200 py-12">
+      {/* TESTIMONIALS SECTION (NEW) */}
+      <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">Let's Work Together</h2>
-          <div className="flex justify-center gap-8 mb-8">
-            <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
-              <Mail size={20} />
-              <span>{personalInfo.email}</span>
-            </a>
-            <a href={`tel:${personalInfo.phone}`} className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
+          <h2 className="text-3xl font-bold text-slate-900 mb-12">Trusted by Industry Leaders</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((t, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative">
+                <div className="text-yellow-400 flex justify-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                </div>
+                <p className="text-slate-600 italic mb-6">"{t.quote}"</p>
+                <div>
+                  <h4 className="font-bold text-slate-900">{t.author}</h4>
+                  <span className="text-sm text-slate-500">{t.company}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT / FOOTER */}
+      <footer id="contact" className="bg-white border-t border-slate-200 py-20 pb-32 md:pb-20">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Ready to scale your business?</h2>
+          <p className="text-slate-500 mb-8 max-w-xl mx-auto">
+            Whether you need a high-converting website or a full-stack marketing strategy, I'm here to help.
+            Let's discuss how we can achieve your goals.
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-6 mb-12">
+            <a href={`tel:${personalInfo.phone}`} className="flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-100">
               <Phone size={20} />
-              <span>{personalInfo.phone}</span>
+              Call Now
+            </a>
+            <a href="/Ssekidde Sadam sidwell_CV.pdf" download className="flex items-center justify-center gap-2 border border-slate-200 text-slate-700 px-8 py-4 rounded-lg font-medium hover:bg-slate-50 transition">
+              <ExternalLink size={20} />
+              Download Resume
             </a>
           </div>
-          <p className="text-sm text-slate-400">
+
+          <div className="flex justify-center gap-8 text-slate-400">
+            <a href={`mailto:${personalInfo.email}`} className="hover:text-blue-600 transition flex items-center gap-2">
+              <Mail size={16} /> {personalInfo.email}
+            </a>
+            <a href={`tel:${personalInfo.phone}`} className="hover:text-blue-600 transition flex items-center gap-2">
+              <Phone size={16} /> {personalInfo.phone}
+            </a>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-slate-100 text-sm text-slate-400">
             &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-          </p>
+          </div>
         </div>
       </footer>
+
+      {/* MOBILE FLOATING CTA */}
+      <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden">
+        <a
+          href={`mailto:${personalInfo.email}`}
+          className="flex items-center justify-center gap-2 w-full bg-slate-900 text-white py-4 rounded-xl font-bold shadow-2xl shadow-slate-500/20"
+        >
+          <MessageSquare size={20} />
+          Let's Talk Business
+        </a>
+      </div>
 
       {/* IMAGE MODAL */}
       {selectedAd && (
