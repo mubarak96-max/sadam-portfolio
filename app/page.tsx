@@ -485,17 +485,6 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      {/* MOBILE FLOATING CTA */}
-      <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden">
-        <a
-          href={`mailto:${personalInfo.email}`}
-          className="flex items-center justify-center gap-2 w-full bg-slate-900 text-white py-4 rounded-xl font-bold shadow-2xl shadow-slate-500/20"
-        >
-          <MessageSquare size={20} />
-          Let's Talk Business
-        </a>
-      </div>
-
       {/* IMAGE MODAL */}
       {selectedAd && (
         <div
